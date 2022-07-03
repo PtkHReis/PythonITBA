@@ -1,9 +1,10 @@
 import csv
-
-
+from datetime import datetime
 
 
 # from auxiliar import Estado
+
+newdate = datetime.datetime.now()
 
 def buscadorCheques(NombreCSV,DNIcliente,Salida,TipoCheque):
     
@@ -12,12 +13,14 @@ def buscadorCheques(NombreCSV,DNIcliente,Salida,TipoCheque):
         for NroCheque,CodigoBanco,CodigoScurusal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Tipo,Estado in reader:
             if DNI == str(DNIcliente):
                 if Tipo == TipoCheque:
-                    with open('info.csv','a',newline='') as Info:
-                        writer = csv.writer(Info)
-                        writer.writerow([NroCheque,CodigoBanco,CodigoScurusal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Tipo,Estado])
-                    
                     if Salida == "PANTALLA":
                         print([NroCheque,CodigoBanco,CodigoScurusal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Tipo,Estado])
+                    else:
+                        with open('info.csv','a',newline='') as Info:
+                            writer = csv.writer(Info)
+                            writer.writerow([NroCheque,CodigoBanco,CodigoScurusal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Tipo,Estado])
+                    
+                    
                    
 
 NombreCSV="cheques.csv"
