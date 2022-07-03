@@ -25,6 +25,7 @@ def buscadorCheques(NombreCSV,DNIcliente,Salida,TipoCheque):
 
 NombreCSV="cheques.csv"
 DNIcliente=int(input("Ingrese su DNI:"))
+Salida = input("Ingrese Salida (PANTALLA O CSV)")
 TipoCheque=input("Ingrese Tipo Cheque (EMITIDO O DEPOSITADO):")
 buscadorCheques(NombreCSV,DNIcliente,TipoCheque)
 # buscadorCheques("cheques.csv",23665789,"EMITIDO")
