@@ -4,24 +4,33 @@ from datetime import date, datetime
 
 newdate = date.today()
 
-def buscadorCheques(NombreCSV,DNIcliente,Salida,TipoCheque,Estados):
+
+def buscadorCheques(NombreCSV, DNIcliente, Salida, TipoCheque, Estados):
     contador = 1
-    with open(NombreCSV,'r') as file:
+    with open(NombreCSV, 'r') as file:
         reader = csv.reader(file)
-        for NroCheque,CodigoBanco,CodigoScurusal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Tipo,Estado in reader:
-            if DNI == str(DNIcliente):
-                if DNI == str(DNIcliente) and Tipo==TipoCheque and Estado==Estados:
-                    if Salida == "PANTALLA":
+        for NroCheque, CodigoBanco, CodigoScurusal, NumeroCuentaOrigen, NumeroCuentaDestino, Valor, FechaOrigen, FechaPago, DNI, Tipo, Estado in reader:
+            if DNI == str(DNIcliente) and Tipo == TipoCheque and Estado == Estados:
+                if Salida == "PANTALLA":
+                    print([NroCheque, CodigoBanco, CodigoScurusal, NumeroCuentaOrigen,NumeroCuentaDestino, Valor, FechaOrigen, FechaPago, DNI, Tipo, Estado])
+                else:
+                    with open(f"{DNIcliente}{newdate}.csv", 'a') as Info:
+                        writer = csv.writer(Info)
+                        if contador == 1:
+                            writer.writerow(["NroCheque,CodigoBanco,CodigoScurusal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Tipo,Estado"])
+                            contador += 1
+                        writer.writerow([NroCheque,CodigoBanco,CodigoScurusal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Tipo,Estado])
+            elif DNI == str(DNIcliente) and Tipo==TipoCheque and Estados!="RECHAZADO" and Estados!="PENDIENTE" and Estados!="APROBADO":
+                if Salida == "PANTALLA":
                         print([NroCheque,CodigoBanco,CodigoScurusal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Tipo,Estado])
-                    else:
+                else:
                         with open(f"{DNIcliente}{newdate}.csv",'a') as Info:
                 
                             writer = csv.writer(Info)
                             if contador == 1:
                                 writer.writerow(["NroCheque,CodigoBanco,CodigoScurusal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Tipo,Estado"])
                                 contador += 1   
-                            writer.writerow([NroCheque,CodigoBanco,CodigoScurusal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Tipo,Estado])
-                    
+                            writer.writerow([NroCheque,CodigoBanco,CodigoScurusal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Tipo,Estado])   
                     
                    
 
