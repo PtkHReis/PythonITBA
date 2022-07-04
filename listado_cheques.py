@@ -31,7 +31,7 @@ def buscadorCheques(NombreCSV, DNIcliente, Salida, TipoCheque, Estados):
                         contador += 1
 
 def crearCsv(NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,contador):
-    with open(f"{DNIcliente}{newdate}.csv",'a') as Info:
+    with open(f"{DNIcliente} {newdate}.csv",'a') as Info:
         writer = csv.writer(Info)
         if contador == 1:
             writer.writerow(["NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago"])
