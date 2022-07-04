@@ -7,29 +7,35 @@ newdate = date.today()
 
 
 def buscadorCheques(NombreCSV, DNIcliente, Salida, TipoCheque, Estados):
-    
+    contador = 1
     with open(NombreCSV, 'r') as file:
         reader = csv.reader(file)
         for NroCheque, CodigoBanco, CodigoSucursal, NumeroCuentaOrigen, NumeroCuentaDestino, Valor, FechaOrigen, FechaPago, DNI, Tipo, Estado in reader:
             if DNI == str(DNIcliente) and Tipo == TipoCheque and Estado == Estados:
                 if Salida == "PANTALLA":
-                    print([NroCheque, CodigoBanco, CodigoSucursal, NumeroCuentaOrigen,NumeroCuentaDestino, Valor, FechaOrigen, FechaPago, DNI, Tipo, Estado])
+                    if contador == 1:
+                        print("NroCheque,CodigoBanco,CodigoSucursal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Tipo,Estado")
+                        contador += 1
+                    print(NroCheque + " " + CodigoBanco+ " " + CodigoSucursal+ " " + NumeroCuentaOrigen+ " " +NumeroCuentaDestino+ " " + Valor+ " " +FechaOrigen+ " " + FechaPago+ " " + DNI+ " " + Tipo+ " " + Estado)
                 else:
-                    crearCsv(NroCheque,CodigoBanco,CodigoSucursal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Tipo,Estado)
+                    crearCsv(NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago)
+                    contador += 1
             elif DNI == str(DNIcliente) and Tipo==TipoCheque and Estados!="RECHAZADO" and Estados!="PENDIENTE" and Estados!="APROBADO":
                 if Salida == "PANTALLA":
-                        print([NroCheque,CodigoBanco,CodigoSucursal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Tipo,Estado])
+                    if contador == 1:
+                        print("NroCheque,CodigoBanco,CodigoSucursal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Tipo,Estado")
+                        contador += 1
+                    print(NroCheque + " " + CodigoBanco+ " " + CodigoSucursal+ " " + NumeroCuentaOrigen+ " " +NumeroCuentaDestino+ " " + Valor+ " " +FechaOrigen+ " " + FechaPago+ " " + DNI+ " " + Tipo+ " " + Estado)
                 else:
-                        crearCsv(NroCheque,CodigoBanco,CodigoSucursal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Tipo,Estado)
+                        crearCsv(NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,contador)
+                        contador += 1
 
-def crearCsv(NroCheque,CodigoBanco,CodigoSucursal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Tipo,Estado):
-    contador = 1
+def crearCsv(NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,contador):
     with open(f"{DNIcliente}{newdate}.csv",'a') as Info:
         writer = csv.writer(Info)
         if contador == 1:
-            writer.writerow(["NroCheque,CodigoBanco,CodigoSucursal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Tipo,Estado"])
-            contador += 1
-        writer.writerow([NroCheque,CodigoBanco,CodigoSucursal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Tipo,Estado])
+            writer.writerow(["NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago"])
+        writer.writerow([NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago])
 
 
 NombreCSV="cheques.csv"
