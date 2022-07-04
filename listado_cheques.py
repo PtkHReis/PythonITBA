@@ -4,16 +4,10 @@ from datetime import date, datetime
 
 newdate = date.today()
 
-def crearCsv(NroCheque,CodigoBanco,CodigoSucursal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Tipo,Estado):
-    with open(f"{DNIcliente}{newdate}.csv",'a') as Info:
-        writer = csv.writer(Info)
-        if contador == 1:
-            writer.writerow(["NroCheque,CodigoBanco,CodigoSucursal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Tipo,Estado"])
-            contador += 1
-        writer.writerow([NroCheque,CodigoBanco,CodigoSucursal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Tipo,Estado])
+
 
 def buscadorCheques(NombreCSV, DNIcliente, Salida, TipoCheque, Estados):
-    contador = 1
+    
     with open(NombreCSV, 'r') as file:
         reader = csv.reader(file)
         for NroCheque, CodigoBanco, CodigoSucursal, NumeroCuentaOrigen, NumeroCuentaDestino, Valor, FechaOrigen, FechaPago, DNI, Tipo, Estado in reader:
@@ -27,6 +21,15 @@ def buscadorCheques(NombreCSV, DNIcliente, Salida, TipoCheque, Estados):
                         print([NroCheque,CodigoBanco,CodigoSucursal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Tipo,Estado])
                 else:
                         crearCsv(NroCheque,CodigoBanco,CodigoSucursal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Tipo,Estado)
+
+def crearCsv(NroCheque,CodigoBanco,CodigoSucursal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Tipo,Estado):
+    contador = 1
+    with open(f"{DNIcliente}{newdate}.csv",'a') as Info:
+        writer = csv.writer(Info)
+        if contador == 1:
+            writer.writerow(["NroCheque,CodigoBanco,CodigoSucursal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Tipo,Estado"])
+            contador += 1
+        writer.writerow([NroCheque,CodigoBanco,CodigoSucursal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Tipo,Estado])
 
 
 NombreCSV="cheques.csv"
